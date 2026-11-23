@@ -1,0 +1,289 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 300vh;
+  position: relative;
+  overflow-x: hidden;
+  background: black;
+  color: white;
+  font-family: "Comic Sans MS", "Chalkboard SE", cursive;
+}
+
+/* ===== Les deux fonds d'images qui se superposent ===== */
+#fond, #fond2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+#fond {
+  animation: couleurs 12s linear infinite;
+}
+
+#fond2 {
+  z-index: -1;
+  mix-blend-mode: difference;
+  opacity: 0.55;
+  animation: zoom 9s ease-in-out infinite alternate;
+}
+
+@keyframes couleurs {
+  from { filter: hue-rotate(0deg) saturate(2.5); }
+  to   { filter: hue-rotate(360deg) saturate(2.5); }
+}
+
+@keyframes zoom {
+  from { transform: scale(1) rotate(0deg); }
+  to   { transform: scale(1.4) rotate(6deg); }
+}
+
+/* ===== Le titre qui tremble ===== */
+#titre {
+  position: relative;
+  width: fit-content;
+  max-width: 90%;
+  margin: 30px 0 0 5%;
+  font-size: clamp(40px, 11vw, 130px);
+  line-height: 0.9;
+  text-shadow: 4px 4px 0 #ff00aa, -4px -4px 0 #00ffe5, 0 0 30px #ffee00;
+  animation: trembler 0.4s infinite;
+  cursor: pointer;
+  user-select: none;
+  z-index: 2;
+}
+
+@keyframes trembler {
+  0%   { transform: rotate(-4deg) translate(0, 0); }
+  25%  { transform: rotate(-3deg) translate(3px, -2px); }
+  50%  { transform: rotate(-5deg) translate(-2px, 3px); }
+  75%  { transform: rotate(-3deg) translate(2px, 2px); }
+  100% { transform: rotate(-4deg) translate(0, 0); }
+}
+
+/* ===== Les gros boutons placés n'importe comment ===== */
+.gros {
+  position: fixed;
+  z-index: 3;
+  border: 4px solid black;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 14px 22px;
+  cursor: pointer;
+}
+
+#fuyard {
+  top: 40vh;
+  left: 60vw;
+  background: red;
+  color: white;
+  transform: rotate(8deg);
+  transition: top 0.15s, left 0.15s;
+}
+
+#multiplier {
+  top: 20vh;
+  right: 3vw;
+  background: lime;
+  color: black;
+  transform: rotate(-12deg);
+}
+
+#tourner {
+  top: 65vh;
+  left: 5vw;
+  background: cyan;
+  color: black;
+  transform: rotate(5deg);
+  border-radius: 40px;
+}
+
+#fond-btn {
+  top: 14vh;
+  left: 38vw;
+  background: magenta;
+  color: white;
+  transform: rotate(-3deg);
+}
+
+#calme {
+  bottom: 60px;
+  right: 20px;
+  background: white;
+  color: black;
+  font-size: 14px;
+}
+
+/* ===== Les boutons générés au hasard ===== */
+#zone-boutons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bouton-fou {
+  position: absolute;
+  pointer-events: auto;
+  border: 3px solid white;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+body.tourne .bouton-fou {
+  animation: tourne 3s linear infinite;
+}
+
+@keyframes tourne {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Bandeau défilant ===== */
+.bandeau {
+  position: fixed;
+  bottom: 0;
+  left: -2%;
+  width: 104%;
+  background: yellow;
+  color: red;
+  font-weight: bold;
+  font-size: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  border-top: 4px dashed red;
+  transform: rotate(-1deg);
+  z-index: 5;
+}
+
+.bandeau span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: defile 14s linear infinite;
+}
+
+@keyframes defile {
+  to { transform: translateX(-100%); }
+}
+
+/* ===== Message surprise au centre ===== */
+#message {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.25s;
+  background: black;
+  color: #ffe600;
+  border: 4px solid #ffe600;
+  padding: 20px 30px;
+  font-family: "Courier New", monospace;
+  font-size: 24px;
+  text-align: center;
+  max-width: 80%;
+  z-index: 50;
+}
+
+#message.visible {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ===== Traînée d'emojis derrière la souris ===== */
+.trace {
+  position: fixed;
+  pointer-events: none;
+  z-index: 40;
+  font-size: 26px;
+  animation: disparait 1s forwards;
+}
+
+@keyframes disparait {
+  to { opacity: 0; transform: translateY(40px) rotate(180deg); }
+}
+
+/* ===== Petits effets spéciaux ===== */
+#secret {
+  position: fixed;
+  bottom: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  opacity: 0.04;
+  z-index: 60;
+}
+
+#doom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 30;
+  box-shadow: inset 0 0 250px 80px rgba(255, 0, 0, 0.8);
+  display: none;
+}
+
+#doom.actif {
+  display: block;
+}
+
+.boule {
+  position: fixed;
+  left: -80px;
+  font-size: 70px;
+  z-index: 45;
+  animation: tirer 1.5s linear forwards;
+}
+
+@keyframes tirer {
+  to { left: 110%; }
+}
+
+body.secoue #zone-boutons,
+body.secoue #titre,
+body.secoue .gros {
+  animation: secousse 0.1s 6;
+}
+
+@keyframes secousse {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-12px, 6px); }
+  50%  { transform: translate(10px, -8px); }
+  75%  { transform: translate(-8px, -6px); }
+  100% { transform: translate(0, 0); }
+}
+
+body.tonneau #fond,
+body.tonneau #fond2,
+body.tonneau #titre,
+body.tonneau .gros {
+  animation: roulade 1s;
+}
+
+@keyframes roulade {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Mode calme : on arrête tout ===== */
+body.calme *,
+body.calme #fond,
+body.calme #fond2 {
+  animation: none !important;
+}
+
+body.calme #fond2 {
+  display: none;
+}
